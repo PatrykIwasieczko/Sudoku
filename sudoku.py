@@ -12,7 +12,21 @@ board = [
 
 
 def solve(board):
-    pass
+    find = find_empty(board)
+    if not find:
+        return True
+    else:
+        row, col = find
+
+    for i in range(1, 10):
+        if checkValid(board, i, (row, col)):
+            board[row][col] = i
+
+            if solve(board):
+                return True
+
+            board[row][col] = 0
+    return False
 
 
 def checkValid(board, number, position):
@@ -32,7 +46,7 @@ def checkValid(board, number, position):
 
     for i in range(box_y * 3, box_y * 3 + 3):
         for j in range(box_x * 3, box_x * 3 + 3):
-            if board[i][j] == num and (i, j) != position:
+            if board[i][j] == number and (i, j) != position:
                 return False
     return True
 
@@ -52,7 +66,7 @@ def print_board(board):
                 print(str(board[i][j]) + " ", end="")
 
 
-def findEmpty(board):
+def find_empty(board):
     for i in range(len(board)):
         for j in range(len(board[0])):
             if board[i][j] == 0:
@@ -60,4 +74,7 @@ def findEmpty(board):
     return None
 
 
+print_board(board)
+solve(board)
+print('_______________________')
 print_board(board)
