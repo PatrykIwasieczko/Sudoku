@@ -16,7 +16,25 @@ def solve(board):
 
 
 def checkValid(board, number, position):
-    pass
+    # Check row
+    for i in range(len(board[0])):
+        if board[position[0]][i] == number and position[1] != i:
+            return False
+
+    # Check column
+    for i in range(len(board)):
+        if board[i][position[1]] == number and position[0] != i:
+            return False
+
+    # Check box
+    box_x = position[1] // 3
+    box_y = position[0] // 3
+
+    for i in range(box_y * 3, box_y * 3 + 3):
+        for j in range(box_x * 3, box_x * 3 + 3):
+            if board[i][j] == num and (i, j) != position:
+                return False
+    return True
 
 
 def print_board(board):
